@@ -1,4 +1,15 @@
-# Failing example: fennel in openresty
+# [SOLVED] Failing example: fennel in openresty
+
+## Solution
+
+OpenResty want's to protect the globals so no code run per reqest can mess with it.
+
+To restore the global state use the following before requiring fennel
+
+```lua
+_G = getmetatable(_G)["__index"] -- XXX
+local fennel = require("fennel")
+```
 
 ## Error
 
